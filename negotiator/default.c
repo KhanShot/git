@@ -46,11 +46,10 @@ static int clear_marks(const char *refname, const struct object_id *oid,
 }
 
 /*
-   This function marks a rev and its ancestors as common.
-   In some cases, it is desirable to mark only the ancestors (for example
-   when only the server does not yet know that they are common).
-*/
-
+ * This function marks a rev and its ancestors as common.
+ * In some cases, it is desirable to mark only the ancestors (for example
+ * when only the server does not yet know that they are common).
+ */
 static void mark_common(struct data *data, struct commit *commit,
 		int ancestors_only, int dont_parse)
 {
@@ -80,9 +79,8 @@ static void mark_common(struct data *data, struct commit *commit,
 }
 
 /*
-  Get the next rev to send, ignoring the common.
-*/
-
+ * Get the next rev to send, ignoring the common.
+ */
 static const struct object_id *get_rev(struct data *data)
 {
 	struct commit *commit = NULL;
