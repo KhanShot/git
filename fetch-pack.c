@@ -499,11 +499,14 @@ static int find_common(struct data *data, struct fetch_pack_args *args,
 				case ACK_continue: {
 					struct commit *commit =
 						lookup_commit(result_oid);
+					int was_common;
 					if (!commit)
 						die(_("invalid commit %s"), oid_to_hex(result_oid));
+					was_common = commit->object.flags & COMMON;
+					mark_common(data, commit, 0, 1);
 					if (args->stateless_rpc
 					 && ack == ACK_common
-					 && !(commit->object.flags & COMMON)) {
+					 && !was_common) {
 						/* We need to replay the have for this object
 						 * on the next RPC request so the peer knows
 						 * it is in common with us.
@@ -520,7 +523,6 @@ static int find_common(struct data *data, struct fetch_pack_args *args,
 					} else if (!args->stateless_rpc
 						   || ack != ACK_common)
 						in_vain = 0;
-					mark_common(data, commit, 0, 1);
 					retval = 0;
 					got_continue = 1;
 					if (ack == ACK_ready)
