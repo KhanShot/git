@@ -891,7 +891,7 @@ test_expect_success 'test --unset-upstream on a particular branch' '
 	test_must_fail git config branch.my14.merge
 '
 
-test_expect_success '--set-upstream fails' '
+test_expect_success 'unsupported option --set-upstream fails' '
     test_must_fail git branch --set-upstream origin/master
 '
 
